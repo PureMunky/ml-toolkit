@@ -29,8 +29,24 @@ namespace ML_Toolkit.Tests.Genetic
                 Algorithm.Run(new Configuration());
                 Assert.Fail();
             }
-            catch(ArgumentNullException e) {
+            catch(ArgumentNullException e)
+            {
                 Assert.AreEqual("Fitness", e.ParamName);
+            }
+        }
+
+        [Test]
+        public void BaseConstructorMissingMateTest()
+        {
+            try{
+                Algorithm.Run(new Configuration() {
+                    Fitness = testFitness
+                });
+                Assert.Fail();
+            }
+            catch(ArgumentNullException e)
+            {
+                Assert.AreEqual("Mate", e.ParamName);
             }
         }
 
@@ -38,10 +54,23 @@ namespace ML_Toolkit.Tests.Genetic
         public void RunTest()
         {
             Results results = Algorithm.Run(new Configuration() {
-                Fitness = testFitness
+                Fitness = testFitness,
+                Mate = new BreederTransparentService().Mate
             });
 
             Assert.AreEqual(0.0, results.BestFitness);
+        }
+
+        [Test]
+        public void BinaryRunTest()
+        {
+            Results results = Algorithm.Run(new Configuration() {
+                Fitness = binaryFitnessTest,
+                Mate = new BreederBinaryService().Mate
+            });
+
+            Assert.AreEqual(8, results.BestFitness);
+            Assert.AreEqual(999, results.TotalGenerations);
         }
     }
 
