@@ -1,7 +1,10 @@
 language: csharp
 solution: ML-Toolkit.sln
+sudo: required
+dist: xenial
 mono: none
 dotnet: 2.2
 script:
  - dotnet restore
+ - dotnet build
  - dotnet test
