@@ -8,11 +8,21 @@ namespace ML_Toolkit.Tests.Genetic.Services
     {
         
         [Test]
-        public void RandomizeSolutionTest()
+        public void RandomizeSolutionSizeTest()
         {
             Solution solution = SolutionService.NewRandom(8);
 
             Assert.AreEqual(8, solution.Value.Length);
+        }
+
+        [Test]
+        public void RandomizeSolutionTest()
+        {
+            const int size = 8;
+            Solution solution1 = SolutionService.NewRandom(size);
+            Solution solution2 = SolutionService.NewRandom(size);
+
+            Assert.AreNotEqual(solution1, solution2);
         }
     }
 }
